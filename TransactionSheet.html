@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="Proj2.css" />  
+<title>Digit Transaction Chart</title>
+<script>
+
+RowansWealth = 5;
+JacksonsWealth = 15;
+
+function ShowWealth() {
+   document.getElementById("RsWealth").value = RowansWealth;
+   document.getElementById("JsWealth").value = JacksonsWealth;
+   
+   }
+
+function resetUNP() {
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+}
+function Home() {
+    window.location.href = "/Economy/WelcomeToDigit.html";
+}
+
+function MakeTransaction() {
+		recipient = document.getElementById("recipient").value;
+	amount = document.getElementById("amount").value;
+	payerUsername = document.getElementById("payerUsername").value;
+	payerPassword = document.getElementById("payerPassword").value;
+	if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+     } else {
+        // code for IE6, IE5          
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    	}
+    	
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            	if (xmlhttp.responseText.includes("ok")) {
+            		resetAll();
+            		window.location.href = "/Economy/WelcomeToDigit.html";
+            	} else if (xmlhttp.responseText.includes("username")) {
+            		window.alert("Invalid Username/Password");
+            	} else if (xmlhttp.responseText.includes("amount")) {
+            		window.alert("Invalid Transaction Amount");
+            	} else {
+            		window.alert("A database error occurred.");
+            	}
+            } 
+        };
+
+        getString = "MoveMoney.php?recipient="+recipient;
+        getString += "&+amount="+amount;
+        getString += "&+payerUsername="+payerUsername;
+        getString += "&+payerPassword="+payerPassword;
+
+        xmlhttp.open("GET", getString, true);
+        xmlhttp.send();
+		}
+</script>
+</head>
+
+<body>
+<div class="Class1" id="1"><b><h1 id="PageTitle">Send Money</h1></b></div>
+<table>
+<tr><td>Recipient User Name:</td><td><input type="text" id="recipient"></td></tr>
+<tr><td>Purchase Price:</td><td><input type="number" id="amount"></td></tr>
+<tr><td>Payer Username:</td><td><input type="text" id="payerUsername"></td></tr>
+<tr><td>Payer Password:</td><td><input type="password" id="payerPassword"></td></tr>
+<tr><td><button type="button" onclick="MakeTransaction()">Submit</button></td><td><input type="reset" onclick="resetUNP()"></td></tr>
+</table><br /><br />
+
+<div class="buttons" type="button"> 
+<button onclick="Home()">Home</button></div>
+</body>
+</html>

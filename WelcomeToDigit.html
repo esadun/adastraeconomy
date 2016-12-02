@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="Proj2.css" />  
+<title>Welcome To Digit</title>
+<script>
+
+username = localStorage.getItem("userName");
+
+function BackToLogIn() {
+    window.location.href = "http://digit.000webhostapp.com";
+}
+
+function MakeTransaction() {
+    window.location.href = "/Economy/TransactionSheet.html";
+    }
+    
+function ShowWealth() {
+	
+	if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+     } else {
+        // code for IE6, IE5          
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    	}
+    	
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+				if (xmlhttp.responseText.includes("no")) {
+            		window.alert("Error");
+            	} else {
+            		document.getElementById("yourWealth").innerHTML = this.responseText;
+            	}
+            } 
+        };
+
+        getString = "/Economy/GetWealth.php?userName="+username;
+        xmlhttp.open("GET", getString, true);
+        xmlhttp.send();
+	
+
+}
+
+</script>
+</head>
+
+<body>
+<div class="Class1" id="1"><b><h1 id="CompanyTitle">Welcome to Digit</h1></b></div>
+
+<div class="buttons">
+<button class="button" type="button" onclick="BackToLogIn()" >Sign Out</button>
+<button class="button" type="button" onclick="ShowWealth()" >Show Wealth</button>
+<button class="button" type="button" onclick="MakeTransaction()" >MakeTransaction</button>
+</div>
+<table> 
+<tr><td>Your Wealth:</td><td id="yourWealth"></td></tr>
+</table><br /><br />
+
+
+
+</body>
+</html>

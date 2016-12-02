@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="Proj2.css" />  
+<title>Digit Sign Up</title>
+<script>
+function resetAll() {
+    document.getElementById("username").value = "";
+    document.getElementById("LastName").value = "";
+    document.getElementById("FirstName").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("password2").value = "";
+}
+function BackToLogIn() {
+    window.location.href = "/Economy";
+}
+function ProperSignUp() {
+
+
+	enteredUserName = document.getElementById("username").value;
+	enteredFirstName = document.getElementById("FirstName").value;
+	enteredLastName = document.getElementById("LastName").value;
+	enteredPassword = document.getElementById("password").value;
+	enteredPassword2 = document.getElementById("password2").value;
+
+    if (enteredUserName == "") {
+        window.alert("User Name may not be blank.");
+        return;
+    } 
+    if (enteredFirstName == "") {
+        window.alert("First Name may not be blank.");
+        return;
+    }
+    if (enteredLastName == "") {
+        window.alert("Last Name may not be blank.");
+        return;
+    }
+    if (enteredPassword == "") {
+        window.alert("Password may not be blank.");
+        return;
+    }
+	if (enteredPassword != enteredPassword2) {
+        window.alert("Password and Password Confirmation do not match.");
+        return;
+    }
+    
+    
+    if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp = new XMLHttpRequest();
+     } else {
+        // code for IE6, IE5          
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    	}
+    	
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            	if (xmlhttp.responseText.includes("okay")) {
+            		resetAll();
+            		localStorage.setItem("userName",enteredUserName);
+            		window.location.href = "/Economy/WelcomeToDigit.html";
+            	} else if (xmlhttp.responseText.includes("no")) {
+            		window.alert("Username is already taken. Please try again");
+            	} else {
+            		window.alert("A database error occurred.");
+            	}
+            } 
+        };
+
+        getString = "CreateUser.php?enteredUserName="+enteredUserName;
+        getString += "&+enteredFirstName="+enteredFirstName;
+        getString += "&+enteredLastName="+enteredLastName;
+        getString += "&+enteredPassword="+enteredPassword;
+
+        xmlhttp.open("GET", getString, true);
+        xmlhttp.send();
+    }
+    
+
+</script>
+</head>
+
+<body>
+<div class="Class1" id="1"><b><h1 id="CompanyTitle">Digit Sign Up</h1></b></div>
+<table>
+<tr><td>User Name:</td><td><input type="text" id="username"></td></tr>
+<tr><td>First Name:</td><td><input type="text" id="FirstName"></td></tr>
+<tr><td>Last Name:</td><td><input type="text" id="LastName"></td></tr>
+<tr><td>Password:</td><td><input type="password" id="password"></td></tr>
+<tr><td>Confirm Password:</td><td><input type="password" id="password2"></td></tr>
+<tr><td><input class="button" type="submit" onclick="ProperSignUp()"></td><td><input class="button" type="reset" onclick="resetAll()"></td></tr>
+</table><br /><br />
+<div class="buttons" id="3"><p>Already Have An Account?</p><br>
+<button class="button" type="button" onclick="BackToLogIn()" >Log In</button></div>
+</body>
+</html>

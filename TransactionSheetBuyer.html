@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="Proj2.css" />  
+<title>Digit Transaction Chart</title>
+<script>
+
+RowansWealth = 5;
+JacksonsWealth = 15;
+
+function ShowWealth() {
+   document.getElementById("RsWealth").value = RowansWealth;
+   document.getElementById("JsWealth").value = JacksonsWealth;
+   
+   }
+
+function resetUNP() {
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+}
+function Home() {
+    window.location.href = "/Economy/WelcomeToDigit.html";
+}
+
+function MakeTransaction() {
+	enteredUserName = document.getElementById("username").value;
+	enteredPassword = document.getElementById("password").value;
+	enteredPrice = document.getElementById("price").value;
+	if (enteredUserName != "") {
+		if (enteredPassword != "") {
+			if (enteredPrice != "") {
+				if (enteredUserName == "Jackson") {
+					if (enteredPassword == "JGpassword") {
+						window.location.href = "/Economy/YouHaveMadeATransaction.html";
+		}}}}}
+	if (enteredUserName != "Jackson") {
+		window.alert ("The User Name and Password Combination isn't correct.");
+		}
+	if (enteredPassword != "JGpassword") {
+		window.alert("The User Name and Password Combination isn't correct.");
+		}
+	else {
+		window.alert("All boxes must be filled.");
+		}
+		}
+</script>
+</head>
+
+<body>
+<div class="Class1" id="1"><b><h1 id="PageTitle">Make Transaction (Buyer)</h1></b></div>
+<table>
+<tr><td>Seller's User Name:</td><td><input type="text" id="username"></td></tr>
+<tr><td>Purchase Price:</td><td><input type="number" id="price"></td></tr>
+<tr><td><button type="button" onclick="MakeTransaction()">Submit</button></td><td><input type="reset" onclick="resetUNP()"></td></tr>
+</table><br /><br />
+<div class="buttons" type="button" >
+<button onclick="ShowWealth()" >Show Wealth</button></div>
+<table>
+   
+
+</table><br /><br />
+<div class="buttons" type="button"> 
+<button onclick="Home()">Home</button></div>
+</body>
+</html>

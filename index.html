@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="Proj2.css" />  
+<title>Digit</title>
+<script>
+
+function resetUNP() {
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+}
+function SignUp() {
+    window.location.href = "/Economy/SignUp.html";
+}
+
+function LogMeIn() {
+	str = document.getElementById("username").value;
+	pass = document.getElementById("password").value;
+    if (str == "") {
+        window.alert("username may not be blank");
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            	if (xmlhttp.responseText.includes("match")) {
+            		resetUNP();
+            		localStorage.setItem("userName",str);
+            		window.location.href = "/Economy/WelcomeToDigit.html";
+            	} else {
+            		window.alert("Username and password combination is not correct.");
+            		resetUNP();
+            	}
+            }
+        };
+        xmlhttp.open("GET","CheckUser.php?q="+str+"&pass="+pass,true);
+        xmlhttp.send();
+    }
+    }
+
+</script>
+</head>
+
+<body>
+<div class="Class1" id="1"><b><h1 id="CompanyTitle">Digit</h1></b></div>
+<table>
+<tr><td>User Name:</td><td><input type="text" id="username"></td></tr>
+<tr><td>Password:</td><td><input type="password" id="password"></td></tr>
+<tr><td><button type="button" onclick="LogMeIn()">Submit</button></td><td><input type="reset" onclick="resetUNP()"></td></tr>
+</table><br /><br />
+<div class="buttons" id="3">Don't Have An Account?<br>
+<button class="button" type="button" onclick="SignUp()" >Sign up</button><br /><br />
+</body>
