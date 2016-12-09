@@ -20,7 +20,7 @@ if ($result->num_rows > 0)  {
 	echo "no";
 } else {
 
-$wealth = 5;
+$wealth = 0;
 $sql = "INSERT INTO users (username, firstname, lastname, password, wealth)
 VALUES ('$username', '$firstname', '$lastname', '$pass', '$wealth')";
 

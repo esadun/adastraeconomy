@@ -10,7 +10,7 @@
 username = localStorage.getItem("userName");
 
 function BackToLogIn() {
-    window.location.href = "http://digit.000webhostapp.com";
+    window.location.href = "/Economy/index.html";
 }
 
 function MakeTransaction() {
@@ -48,12 +48,12 @@ function ShowWealth() {
 </head>
 
 <body>
-<div class="Class1" id="1"><b><h1 id="CompanyTitle">Welcome to Digit</h1></b></div>
+<div class="Class1" id="1"><b><h1 id="CompanyTitle">Aurum Exchange</h1></b></div>
 
 <div class="buttons">
 <button class="button" type="button" onclick="BackToLogIn()" >Sign Out</button>
 <button class="button" type="button" onclick="ShowWealth()" >Show Wealth</button>
-<button class="button" type="button" onclick="MakeTransaction()" >MakeTransaction</button>
+<button class="button" type="button" onclick="MakeTransaction()" >Make Transaction</button>
 </div>
 <table> 
 <tr><td>Your Wealth:</td><td id="yourWealth"></td></tr>

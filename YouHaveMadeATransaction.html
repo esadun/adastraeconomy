@@ -7,26 +7,10 @@
 <title>Congratulations</title>
 <script>
 
-function resetUNP() {
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
-}
 function Home() {
     window.location.href = "/Economy/WelcomeToDigit.html";
 }
 
-function LogMeIn() {
-	enteredUserName = document.getElementById("username").value;
-	enteredPassword = document.getElementById("password").value;
-	if (enteredUserName == "Rowan") {
-		if (enteredPassword == "RJpassword") {
-			window.location.href = "file:///Users/rowanj/Documents/WelcomeToDigit.html";
-		}
-	else {
-		window.alert("Stay out, you hacker!!");
-		}
-		}
-	}
 function AnotherTransaction() {
     window.location.href = "/Economy/TransactionSheet.html";
 }
@@ -34,10 +18,10 @@ function AnotherTransaction() {
 </head>
 
 <body>
-<div class="Class1" id="1"><b><h1 id="PageTitle">Congratulations You Have Made a Transaction</h1></b></div>
+<div class="Class1" id="1"><b><h1 id="PageTitle">Transaction Complete</h1></b></div>
 <div class="buttons" type="button">
-<button onclick="AnotherTransaction()" >Another Transaction</button></div>
+<button class="button" type="button" onclick="AnotherTransaction()" >Another Transaction</button></div>
 <div class="buttons" type="button"> 
-<button onclick="Home()">Home</button></div>
+<button class="button" type="button" onclick="Home()">Home</button></div>
 </body>
 </html>

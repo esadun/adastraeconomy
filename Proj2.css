@@ -7,11 +7,14 @@ body {
     background-color: 	#C0C0C0;
     font-size: 150%;
     min-width: 800px;
-    }
+    font-family: Sans-Serif;
+	text-transform: uppercase;
+	color: #000;
+	padding: 20px;
+	}
 
 h1 { 
     text-align: center;
-    color: darkblue;
     }    
     
 h2 { 
@@ -122,6 +125,13 @@ td {
 .button {
 	font-size: 100%;
 	margin: 0 15px 0 15px; 
+	padding: 5px 15px 5px 15px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.centered{
+	text-align: center;
 }
 
 .error {

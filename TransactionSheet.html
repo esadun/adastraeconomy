@@ -5,30 +5,43 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="Proj2.css" />  
 <title>Digit Transaction Chart</title>
+<script
+  src="https://code.jquery.com/jquery-1.12.4.min.js"
+  integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+  crossorigin="anonymous"></script>
+<script>
+    $( document ).ready(function() {
+      // Handler for .ready() called.
+      $.getJSON("/Economy/GetUsers.php",function(students){
+        var htmlString="";
+        for(var i=0;i<students.length;i++){
+            htmlString+="<option>"+students[i]+"</option>";
+        }
+        $("#recipient").append(htmlString);
+        $("#payerUsername").append(htmlString);
+        resetUNP();
+      });
+    });
+</script>
 <script>
 
-RowansWealth = 5;
-JacksonsWealth = 15;
-
-function ShowWealth() {
-   document.getElementById("RsWealth").value = RowansWealth;
-   document.getElementById("JsWealth").value = JacksonsWealth;
-   
-   }
-
 function resetUNP() {
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
+    $("#recipient").val(null);
+    document.getElementById("amount").value = "";
+    $("#payerUsername").val(null);
+    document.getElementById("payerPassword").value = "";
+    $("#note").val("");
 }
 function Home() {
     window.location.href = "/Economy/WelcomeToDigit.html";
 }
 
 function MakeTransaction() {
-		recipient = document.getElementById("recipient").value;
+	recipient = document.getElementById("recipient").value;
 	amount = document.getElementById("amount").value;
 	payerUsername = document.getElementById("payerUsername").value;
 	payerPassword = document.getElementById("payerPassword").value;
+    note = $("#note").val();
 	if (window.XMLHttpRequest) {
         // code for IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
@@ -40,14 +53,14 @@ function MakeTransaction() {
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
             	if (xmlhttp.responseText.includes("ok")) {
-            		resetAll();
-            		window.location.href = "/Economy/WelcomeToDigit.html";
+            		resetUNP();
+            		window.location.href = "/Economy/YouHaveMadeATransaction.html";
             	} else if (xmlhttp.responseText.includes("username")) {
             		window.alert("Invalid Username/Password");
             	} else if (xmlhttp.responseText.includes("amount")) {
             		window.alert("Invalid Transaction Amount");
             	} else {
-            		window.alert("A database error occurred.");
+            		window.alert("An error occurred: "+xmlhttp.responseText);
             	}
             } 
         };
@@ -56,6 +69,7 @@ function MakeTransaction() {
         getString += "&+amount="+amount;
         getString += "&+payerUsername="+payerUsername;
         getString += "&+payerPassword="+payerPassword;
+        getString += "&+note="+note;
 
         xmlhttp.open("GET", getString, true);
         xmlhttp.send();
@@ -64,16 +78,18 @@ function MakeTransaction() {
 </head>
 
 <body>
+
 <div class="Class1" id="1"><b><h1 id="PageTitle">Send Money</h1></b></div>
 <table>
-<tr><td>Recipient User Name:</td><td><input type="text" id="recipient"></td></tr>
-<tr><td>Purchase Price:</td><td><input type="number" id="amount"></td></tr>
-<tr><td>Payer Username:</td><td><input type="text" id="payerUsername"></td></tr>
-<tr><td>Payer Password:</td><td><input type="password" id="payerPassword"></td></tr>
-<tr><td><button type="button" onclick="MakeTransaction()">Submit</button></td><td><input type="reset" onclick="resetUNP()"></td></tr>
+<tr><td>Pay to:</td><td><select id="recipient"></select></td></tr>
+<tr><td>Amount:</td><td><input type="number" id="amount"></td></tr>
+<tr><td>From:</td><td><select id="payerUsername"></select></td></tr>
+<tr><td>Password:</td><td><input type="password" id="payerPassword"></td></tr>
+<tr><td>Note:</td><td><textarea id="note"></textarea></td></tr>
+<tr><td><button class="button" type="button" onclick="MakeTransaction()">Submit</button></td><td><input class="button" type="reset" onclick="resetUNP()"></td></tr>
 </table><br /><br />
 
-<div class="buttons" type="button"> 
-<button onclick="Home()">Home</button></div>
+<div class="centered"> 
+<button class="button" type="button" onclick="Home()">Home</button></div>
 </body>
 </html>
